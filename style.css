@@ -1,15 +1,15 @@
 :root {
   --calculatorBackground: #B6AA9C;
   --background: #232423;
-  --buttonsNumber: #5E4434;
-  --buttonsOperation: #765C3C;
+  --buttons: #5E4434;
+  /* --buttonsOperation: #765C3C; */
 }
 
 html {
   /* footer support */
   /* position: relative; */
   height: 100%;
-  min-width: 100%; 
+  min-width: 100%;
   /* font-family: Merriweather; */
 }
 
@@ -40,7 +40,7 @@ body {
   border-radius: 15px;
 }
 
-.Btns {
+.btns {
   width: 100%;
   display: grid;
   justify-content: center;
@@ -53,13 +53,8 @@ body {
   margin: 15px;
 }
 
-.btnOperation {
-  background-color: var(--buttonsOperation);
-  color: white;
-}
-
-.btnNumber {
-  background-color: var(--buttonsNumber);
+.btnOperation, .btnNumber {
+  background-color: var(--buttons);
   color: white;
 }
 
@@ -72,7 +67,7 @@ body {
   font-size: 20px;
 }
 
-.display{
+.display {
   background-color: var(--background);
   margin: 15px;
   margin-bottom: 0px;
@@ -80,18 +75,18 @@ body {
   width: 85%;
   border-radius: 10px;
   color: white;
-
   text-align: end;
 }
 
-.oldResults{
+.oldResults {
   font-size: 17px;
 }
 
-.oldResult{
+.oldResult {
   padding-top: 7px;
 }
 
-.currentOperation{
+.currentOperation {
   padding-top: 7px;
+  height: 30px;
 }
