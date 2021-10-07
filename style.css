@@ -1,0 +1,97 @@
+:root {
+  --calculatorBackground: #B6AA9C;
+  --background: #232423;
+  --buttonsNumber: #5E4434;
+  --buttonsOperation: #765C3C;
+}
+
+html {
+  /* footer support */
+  /* position: relative; */
+  height: 100%;
+  min-width: 100%; 
+  /* font-family: Merriweather; */
+}
+
+/* reset */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  min-height: 100%;
+  background-color: var(--background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mainContainer {
+  width: 350px;
+  background-color: var(--calculatorBackground);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  border-radius: 15px;
+}
+
+.Btns {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  /* align-items: center; */
+  /* grid-column-gap: 50px; */
+  grid-template-columns: auto auto auto auto;
+  row-gap: 10px;
+  column-gap: 20px;
+  padding: 10px;
+  margin: 15px;
+}
+
+.btnOperation {
+  background-color: var(--buttonsOperation);
+  color: white;
+}
+
+.btnNumber {
+  background-color: var(--buttonsNumber);
+  color: white;
+}
+
+.btnOperation, .btnNumber {
+  height: 45px;
+  width: 55px;
+  padding: 10px;
+  border-radius: 10px;
+  border: transparent;
+  font-size: 20px;
+}
+
+.display{
+  background-color: var(--background);
+  margin: 15px;
+  margin-bottom: 0px;
+  padding: 10px;
+  width: 85%;
+  border-radius: 10px;
+  color: white;
+
+  text-align: end;
+}
+
+.oldResults{
+  font-size: 17px;
+}
+
+.oldResult{
+  padding-top: 7px;
+}
+
+.currentOperation{
+  padding-top: 7px;
+}

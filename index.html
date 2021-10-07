@@ -6,17 +6,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    <script src="code.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="mainContainer">
         <div class="display">
             <div class="oldResults">
-                <p class="oldResult3">Teste</p>
-                <p class="oldResult2">Teste</p>
-                <p class="oldResult1">Teste</p>
+                <p class="oldResult" id="oldResult3"></p>
+                <p class="oldResult" id="oldResult2"></p>
+                <p class="oldResult" id="oldResult1"></p>
             </div>
-            <div class="actualOperation">Teste</div>
+            <div class="currentOperation" id="currentOperation" ></div>
         </div>
         <div class="Btns">
             <button class="btnOperation" id="AC">AC</button>
