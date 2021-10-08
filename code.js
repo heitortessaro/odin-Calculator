@@ -2,31 +2,32 @@ const DEFAULT_buttonsNumber = '#5e3439';
 const DEFAULT_buttonsOperation = '#5e5934';
 const DEFAULT_buttons = '#5E4434';
 let varA = '';
-// let varB = '';
-// let result = '';
+let varB = '';
+let result = '';
 let operation = '';
+let sizeVarAOperation = 0;
 
 
 // get elements
-const btn0 = document.getElementById('n0');
-const btn1 = document.getElementById('n1');
-const btn2 = document.getElementById('n2');
-const btn3 = document.getElementById('n3');
-const btn4 = document.getElementById('n4');
-const btn5 = document.getElementById('n5');
-const btn6 = document.getElementById('n6');
-const btn7 = document.getElementById('n7');
-const btn8 = document.getElementById('n8');
-const btn9 = document.getElementById('n9');
-const comma = document.getElementById('comma');
-const opSum = document.getElementById('sum');
-const opSub = document.getElementById('subtraction');
-const opMul = document.getElementById('multiplication');
-const opDiv = document.getElementById('division');
-const opEqu = document.getElementById('equal');
-const opPosNeg = document.getElementById('positiveNegative');
-const opAC = document.getElementById('AC');
-const opC = document.getElementById('')
+// const btn0 = document.getElementById('n0');
+// const btn1 = document.getElementById('n1');
+// const btn2 = document.getElementById('n2');
+// const btn3 = document.getElementById('n3');
+// const btn4 = document.getElementById('n4');
+// const btn5 = document.getElementById('n5');
+// const btn6 = document.getElementById('n6');
+// const btn7 = document.getElementById('n7');
+// const btn8 = document.getElementById('n8');
+// const btn9 = document.getElementById('n9');
+// const comma = document.getElementById('comma');
+// const opSum = document.getElementById('sum');
+// const opSub = document.getElementById('subtraction');
+// const opMul = document.getElementById('multiplication');
+// const opDiv = document.getElementById('division');
+// const opEqu = document.getElementById('equal');
+// const opPosNeg = document.getElementById('positiveNegative');
+// const opAC = document.getElementById('AC');
+// const opC = document.getElementById('')
 
 const oldResult1 = document.getElementById('oldResult1');
 const oldResult2 = document.getElementById('oldResult2');
@@ -69,8 +70,11 @@ function resetColor() {
 
 // calls
 function clickNumber() {
+    if (currentOperation.textContent == result) {
+        currentOperation.textContent = '';
+    }
     let variable = this.textContent;
-    currentOperation.textContent += `${variable}`
+    currentOperation.textContent += `${variable}`;
 }
 
 function clickOperation() {
@@ -79,16 +83,41 @@ function clickOperation() {
         resetAll();
         return;
     } else if (variable == "C") {
-        undo();
+        eraseLast();
         return;
-    } else if (currentOperation.textContent == ''){
+    } else if (currentOperation.textContent == '') {
         return;
-    } 
+    } else if (variable == "=" &&
+        currentOperation.textContent.length > sizeVarAOperation) {
+        varB = currentOperation.textContent.slice(sizeVarAOperation);
+        performeOperation();
+        showResults();
+    } else if (!(operation == '') &&
+        currentOperation.textContent.length > sizeVarAOperation) {
+        varB = currentOperation.textContent.slice(sizeVarAOperation);
+        performeOperation();
+        showResults();
+        // varA = currentOperation.textContent;
+        operation = variable;
+        currentOperation.textContent += `${variable}`
+        sizeVarAOperation = currentOperation.textContent.length;
+    } else if (operation != '' && operation != '-' && variable == '-' &&
+        currentOperation.textContent.length == sizeVarAOperation) {
+        currentOperation.textContent += `${variable}`
+    } else if (!(operation == '') && (variable != '=') &&
+        currentOperation.textContent.length == sizeVarAOperation) {
+        eraseLast();
+        operation = variable;
+        currentOperation.textContent += `${variable}`
+        sizeVarAOperation = currentOperation.textContent.length;
+    } else if (variable != '='){
+        varA = currentOperation.textContent;
+        operation = variable;
+        currentOperation.textContent += `${variable}`
+        sizeVarAOperation = currentOperation.textContent.length;
+    }
 }
 
-// function printCurrent(){
-//     if var
-// }
 
 //operations
 function resetAll() {
@@ -96,30 +125,85 @@ function resetAll() {
     oldResult1.textContent = '-';
     oldResult2.textContent = '-';
     oldResult3.textContent = '-';
+    varA = '';
+    varB = '';
+    result = '';
+    operation = '';
+    sizeVarAOperation = 0;
+
 }
 
-function undo() {
-    currentOperation.textContent =
-        currentOperation.textContent.slice(0,
-            (currentOperation.textContent.length - 1));
+function eraseLast() {
+    if (currentOperation.textContent == result) {
+        currentOperation.textContent = '';
+    } else {
+        currentOperation.textContent =
+            currentOperation.textContent.slice(0,
+                (currentOperation.textContent.length - 1));
+    }
+}
+
+function performeOperation() {
+    switch (operation) {
+        case '+':
+            result = add(varA, varB).toString();
+            break;
+        case '-':
+            result = subtract(varA, varB).toString();
+            break;
+        case '*':
+            result = multiply(varA, varB).toString();
+            break;
+        case '/':
+            result = divide(varA, varB).toString();
+            break;
+        default:
+            break;
+    }
+}
+
+function showResults() {
+    varA = result;
+    oldResult3.textContent = oldResult2.textContent;
+    oldResult2.textContent = oldResult1.textContent;
+    oldResult1.textContent = currentOperation.textContent + '=' + result;
+    currentOperation.textContent = varA;
+    operation = '';
 }
 
 function add(a, b) {
+    a = parseFloat(a);
+    b = parseFloat(b);
     return (a + b);
 };
 
 function subtract(a, b) {
+    a = parseFloat(a);
+    b = parseFloat(b);
     return (a - b);
 };
 
 function multiply(a, b) {
-    return (a * b);
+    a = parseFloat(a);
+    b = parseFloat(b);
+    return checkLenght(a * b);
 };
 
 function divide(a, b) {
-    return (a / b);
+    a = parseFloat(a);
+    b = parseFloat(b);
+    return checkLenght(a / b);
 }
 
+function checkLenght(result) {
+    if (result.toString().length > 5 &&
+        result.toString().split('').some(position => {
+            return position == ".";
+        })) {
+        result = result.toFixed(4);
+    }
+    return result;
+}
 
 
 
