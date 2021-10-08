@@ -8,27 +8,6 @@ let operation = '';
 let sizeVarAOperation = 0;
 
 
-// get elements
-// const btn0 = document.getElementById('n0');
-// const btn1 = document.getElementById('n1');
-// const btn2 = document.getElementById('n2');
-// const btn3 = document.getElementById('n3');
-// const btn4 = document.getElementById('n4');
-// const btn5 = document.getElementById('n5');
-// const btn6 = document.getElementById('n6');
-// const btn7 = document.getElementById('n7');
-// const btn8 = document.getElementById('n8');
-// const btn9 = document.getElementById('n9');
-// const comma = document.getElementById('comma');
-// const opSum = document.getElementById('sum');
-// const opSub = document.getElementById('subtraction');
-// const opMul = document.getElementById('multiplication');
-// const opDiv = document.getElementById('division');
-// const opEqu = document.getElementById('equal');
-// const opPosNeg = document.getElementById('positiveNegative');
-// const opAC = document.getElementById('AC');
-// const opC = document.getElementById('')
-
 const oldResult1 = document.getElementById('oldResult1');
 const oldResult2 = document.getElementById('oldResult2');
 const oldResult3 = document.getElementById('oldResult3');
@@ -95,6 +74,11 @@ function clickOperation() {
         varB = currentOperation.textContent.slice(sizeVarAOperation);
         performeOperation();
         showResults();
+    } else if (variable == "%" &&
+        currentOperation.textContent.length > sizeVarAOperation) {
+        varB = currentOperation.textContent.slice(sizeVarAOperation);
+        performeOperationPercent();
+        showResults();
     } else if (!(operation == '') &&
         currentOperation.textContent.length > sizeVarAOperation) {
         varB = currentOperation.textContent.slice(sizeVarAOperation);
@@ -150,7 +134,7 @@ function selectUp() {
         return
     } else {
         let equalPosition = oldResult1.textContent.indexOf('=');
-        currentOperation.textContent = oldResult1.textContent.slice(equalPosition+1);
+        currentOperation.textContent = oldResult1.textContent.slice(equalPosition + 1);
         oldResult1.textContent = oldResult2.textContent;
         oldResult2.textContent = oldResult3.textContent;
         oldResult3.textContent = '-';
@@ -158,13 +142,6 @@ function selectUp() {
         result = '';
         sizeVarAOperation = 0;
     }
-
-    // varA = result;
-    // oldResult3.textContent = oldResult2.textContent;
-    // oldResult2.textContent = oldResult1.textContent;
-    // oldResult1.textContent = currentOperation.textContent + '=' + result;
-    // currentOperation.textContent = varA;
-    // operation = '';
 }
 
 function performeOperation() {
@@ -185,6 +162,27 @@ function performeOperation() {
             break;
     }
 }
+
+function performeOperationPercent() {
+    switch (operation) {
+        case '+':
+            result = addPercent(varA, varB).toString();
+            break;
+        case '-':
+            result = subtractPercent(varA, varB).toString();
+            break;
+        case '*':
+            result = multiplyPercent(varA, varB).toString();
+            break;
+        case '/':
+            result = dividePercent(varA, varB).toString();
+            break;
+        default:
+            break;
+    }
+}
+
+
 
 function showResults() {
     varA = result;
@@ -218,6 +216,33 @@ function divide(a, b) {
     b = parseFloat(b);
     return checkLenght(a / b);
 }
+
+function addPercent(a, b) {
+    a = parseFloat(a);
+    b = parseFloat(b);
+    b = (a / 100) * b;
+    return checkLenght(a + b);
+};
+
+function subtractPercent(a, b) {
+    a = parseFloat(a);
+    b = parseFloat(b);
+    b = (a / 100) * b;
+    return checkLenght(a - b);
+};
+
+function multiplyPercent(a, b) {
+    a = parseFloat(a);
+    b = parseFloat(b);
+    return checkLenght(a * (b / 100));
+};
+
+function dividePercent(a, b) {
+    a = parseFloat(a);
+    b = parseFloat(b);
+    return checkLenght(a / (b / 100));
+}
+
 
 function checkLenght(result) {
     if (result.toString().length > 5 &&
