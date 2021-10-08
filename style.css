@@ -71,6 +71,7 @@ body {
 .display {
   background-color: var(--background);
   margin: 15px;
+  margin-top: 25px;
   margin-bottom: 0px;
   padding: 10px;
   width: 85%;
