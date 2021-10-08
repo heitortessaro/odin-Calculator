@@ -88,5 +88,10 @@ body {
 
 .currentOperation {
   padding-top: 7px;
-  height: 30px;
+  /* height: 30px; */
+  min-height: 30px;
+}
+
+.oldResult, .currentOperation {
+  overflow-wrap: anywhere
 }
