@@ -79,12 +79,15 @@ function clickNumber() {
 
 function clickOperation() {
     let variable = this.textContent;
+    // console.log(variable)
     if (variable == "AC") {
         resetAll();
         return;
     } else if (variable == "C") {
         eraseLast();
         return;
+    } else if (variable == "▲") {
+        selectUp();
     } else if (currentOperation.textContent == '') {
         return;
     } else if (variable == "=" &&
@@ -110,7 +113,7 @@ function clickOperation() {
         operation = variable;
         currentOperation.textContent += `${variable}`
         sizeVarAOperation = currentOperation.textContent.length;
-    } else if (variable != '='){
+    } else if (variable != '=') {
         varA = currentOperation.textContent;
         operation = variable;
         currentOperation.textContent += `${variable}`
@@ -130,7 +133,6 @@ function resetAll() {
     result = '';
     operation = '';
     sizeVarAOperation = 0;
-
 }
 
 function eraseLast() {
@@ -141,6 +143,28 @@ function eraseLast() {
             currentOperation.textContent.slice(0,
                 (currentOperation.textContent.length - 1));
     }
+}
+
+function selectUp() {
+    if (oldResult1.textContent == '-') {
+        return
+    } else {
+        let equalPosition = oldResult1.textContent.indexOf('=');
+        currentOperation.textContent = oldResult1.textContent.slice(equalPosition+1);
+        oldResult1.textContent = oldResult2.textContent;
+        oldResult2.textContent = oldResult3.textContent;
+        oldResult3.textContent = '-';
+        varA = '';
+        result = '';
+        sizeVarAOperation = 0;
+    }
+
+    // varA = result;
+    // oldResult3.textContent = oldResult2.textContent;
+    // oldResult2.textContent = oldResult1.textContent;
+    // oldResult1.textContent = currentOperation.textContent + '=' + result;
+    // currentOperation.textContent = varA;
+    // operation = '';
 }
 
 function performeOperation() {
